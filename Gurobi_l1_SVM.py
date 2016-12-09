@@ -1,6 +1,9 @@
 import numpy as np
 from gurobipy import *
 
+import sys
+#sys.path.append('/cm/shared/engaging/gurobi/gurobi652/linux64/lib/python2.7')
+
 
 def l1_SVM(X, y, C, time_limit, model):
 
