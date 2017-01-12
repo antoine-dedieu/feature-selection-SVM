@@ -83,7 +83,7 @@ def SVM_RFE_CV_test(X_train, y_train, X_test, y_test, size, number_CV, C_list):
 
         #Scikit fits on the subset of columns to obtain an estimator for the whole test set
         support, coefficients = selector_CV.support_, selector_CV.estimator_.coef_[0]
-        beta_RFE_SVM_reduced, b0  = build_RFE_estimator(support, coefficients, P_RFE), -selector_CV.estimator_.intercept_[0]
+        beta_RFE_SVM_reduced, b0  = build_RFE_estimator(support, coefficients, P_RFE), selector_CV.estimator_.intercept_[0]
         ranking_features_reduced = selector_CV.ranking_
         
         

@@ -34,7 +34,7 @@ def compare_l1_RFE(N,P,k0,rho,type_Sigma,size):
     write_and_print('\n\nL1 SVM' ,f)
 
     number_CV = 5
-    C_list = [2**i for i in range(-10,10)]
+    C_list = [2**i for i in range(-10,0)]
 
 
     best_index, validation_errors_l1, train_CV_errors, support_list, model_status_list, times_list, time_l1 = cross_validation_l1_SVM(X_train, y_train, number_CV, C_list)
@@ -53,7 +53,8 @@ def compare_l1_RFE(N,P,k0,rho,type_Sigma,size):
     write_and_print('\n\nSVM RFE' ,f)
 
     #Result includes correlations for further analysis
-    train_error_RFE, test_error_RFE, beta_SVM_RFE, b0_opt, validation_errors_RFE, support_list, ranking_features_RFE, C_optimal_RFE, time_RFE = SVM_RFE_CV_test(X_train, y_train, X_test, y_test, size, number_CV, C_list)
+    support_beta_l1 = np.where(beta_l1_SVM!=0)[0]
+    train_error_RFE, test_error_RFE, beta_SVM_RFE, b0_opt, validation_errors_RFE, support_list, ranking_features_RFE, C_optimal_RFE, time_RFE = SVM_RFE_CV_test(X_train, y_train, X_test, y_test, len(support_beta_l1), number_CV, C_list)
 
     write_and_print('\nTrain error for RFE : '+str(train_error_RFE), f)
     write_and_print('Test error for RFE  : '+str(test_error_RFE), f)
@@ -69,7 +70,6 @@ def compare_l1_RFE(N,P,k0,rho,type_Sigma,size):
     X_train_reduced = []
     X_test_reduced = []
 
-    support_beta_l1 = np.where(beta_l1_SVM!=0)[0]
     for i in support_beta_l1:
         X_train_reduced.append(X_train[:,i])
         X_test_reduced.append(X_test[:,i])
